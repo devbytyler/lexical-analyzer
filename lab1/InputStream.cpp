@@ -5,7 +5,7 @@
 InputStream::InputStream(string file_name)
 {
   currentLoc = 0;
-  currentLine = 1;
+  currentLine = 0;
   atEnd = false;
   buildString(file_name);
 }
@@ -29,17 +29,15 @@ void InputStream::buildString(string file_name)
 {
   ifstream infile;
   stringstream ss;
-  char c;
+  string line;
   infile.open(file_name);
-  while (infile.get(c)) {
-    // cout << (line.back()) << endl;
-    // cout << (line.back() == '\n') << endl;
-    ss << c;
+  while (getline(infile, line)) {
+    ss << line << endl;
   }
   str = ss.str();
   // str.pop_back();
   infile.close();
-  // if (str.length() > 0) currentLine++;
+  if (str.length() > 0) currentLine++;
 }
 
 void InputStream::print()
